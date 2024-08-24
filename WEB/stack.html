@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Game - Learn Stack</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 800px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .title {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            color: #17a2b8;
+            margin-bottom: 20px;
+        }
+        #stack-list {
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        button {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #results {
+            margin-top: 30px;
+        }
+        .stack-element {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .popped {
+            color: green;
+            font-weight: bold;
+        }
+        .content-section {
+            background-color: #e9f7f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .content-section h2 {
+            color: #007bff;
+        }
+        .content-section p {
+            font-size: 1.1rem;
+        }
+        .highlight {
+            color: #ff6347;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Stack</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="list.html">Linked Lists</a></li>
+                <li><a href="queue.html">Queue</a></li>
+                <li><a href="arr.html">Arrays</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container content-section">
+        <h2>What is a Stack?</h2>
+        <p>
+            A <span class="highlight">stack</span> is a linear data structure that follows the 
+            <span class="highlight">Last In, First Out (LIFO)</span> principle. This means that the last element added to the stack will be the first one to be removed.
+        </p>
+        <p>
+            Imagine a stack of plates. The last plate added to the top of the stack is the first one you’ll take off. This is exactly how a stack works in programming.
+        </p>
+        <p>
+            Stacks are used in scenarios where you need to reverse items, such as undo operations in software, backtracking algorithms, and more.
+        </p>
+        <p>
+            In this game, you can push elements onto the stack, and then pop them off, demonstrating the LIFO concept.
+        </p>
+        <p>
+            Key operations in a stack:
+            <ul>
+                <li><span class="highlight">Push</span>: Add an element to the top of the stack.</li>
+                <li><span class="highlight">Pop</span>: Remove the top element from the stack.</li>
+            </ul>
+        </p>
+        <p>
+            The stack allows you to remove the last element added, which showcases the Last In, First Out principle.
+        </p>
+    </div>
+    <div class="container text-center">
+        <h1 class="title">🚀 Stack Game 🚀</h1>
+        <p class="subtitle">Learn About the Stack Data Structure</p>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="elementName" placeholder="Enter stack element">
+            <button class="btn btn-primary" onclick="pushElement()">Push to Stack</button>
+        </div>
+
+        <div id="stack-list" class="alert alert-info"></div>
+
+        <button class="btn btn-danger" onclick="popElement()">Pop from Stack</button>
+
+        <div id="results" class="mt-4"></div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let stack = [];
+
+        // Function to push an element onto the stack
+        function pushElement() {
+            const elementName = document.getElementById('elementName').value.trim();
+            if (elementName) {
+                stack.push(elementName);
+                displayStack();
+                document.getElementById('elementName').value = ''; // Clear input
+            }
+        }
+
+        // Display the stack
+        function displayStack() {
+            const stackList = document.getElementById('stack-list');
+            stackList.innerHTML = `<strong>Stack:</strong> ${stack.join(' -> ')}`;
+        }
+
+        // Function to pop an element from the stack
+        function popElement() {
+            if (stack.length > 0) {
+                const poppedElement = stack.pop();
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML += `<p class="popped">${poppedElement} popped from the stack!</p>`;
+                displayStack();
+            } else {
+                alert('The stack is empty. Please push an element first.');
+            }
+        }
+    </script>
+</body>
+</html>

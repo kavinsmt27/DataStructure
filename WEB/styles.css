@@ -1,0 +1,78 @@
+/* General styles for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+    min-height: calc(100vh - 120px); /* Adjust the height to ensure the footer stays at the bottom */
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Puzzle Game Specific Styles */
+.puzzle-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.puzzle-board {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    grid-gap: 5px;
+    justify-content: center;
+    margin: auto;
+}
+
+.puzzle-tile {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.puzzle-tile.empty {
+    background-color: #fff;
+    cursor: default;
+}
