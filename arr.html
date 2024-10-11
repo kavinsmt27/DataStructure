@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 1100px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #007bff;
+        }
+
+        .content-section p,
+        .content-section ul {
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background-color: #e9f7f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .sudoku-container {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .sudoku-board {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-gap: 5px;
+            justify-content: center;
+            margin: auto;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .sudoku-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            font-size: 20px;
+            transition: background-color 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .sudoku-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 1.5rem;
+            outline: none;
+        }
+
+        .sudoku-cell:focus {
+            background-color: #e0e0e0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .sudoku-board {
+                grid-template-columns: repeat(9, 1fr);
+                grid-gap: 3px;
+            }
+
+            .sudoku-cell input {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sudoku-board {
+                grid-gap: 2px;
+            }
+
+            .sudoku-cell input {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="title">Arrays</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="list.html">Linked List</a></li>
+                <li><a href="queue.html">Queue</a></li>
+                <li><a href="stack.html">Stack</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container content-section">
+            <h2>Introduction to Arrays</h2>
+            <p>An array is a data structure that stores a collection of items at contiguous memory locations. It allows
+                for fast access to elements using an index.</p>
+
+            <h3>Basic Operations</h3>
+            <ul>
+                <li><strong>Accessing Elements:</strong> Directly accessing an element using its index.
+                    <code>array[index]</code>.</li>
+                <li><strong>Inserting Elements:</strong> Adding an element at a specific position. This may involve
+                    shifting elements.</li>
+                <li><strong>Deleting Elements:</strong> Removing an element from a specific position. This may also
+                    involve shifting elements.</li>
+                <li><strong>Traversing:</strong> Iterating through the array to perform operations on each element.</li>
+            </ul>
+
+            <h3>Example</h3>
+            <pre><code>
+// Java Example
+int[] arr = {1, 2, 3, 4, 5}; // Declaration and initialization
+System.out.println(arr[2]); // Accessing the third element
+            </code></pre>
+
+            <h3>Advantages</h3>
+            <ul>
+                <li>Constant time access to elements using an index.</li>
+                <li>Simple to implement and use.</li>
+            </ul>
+
+            <h3>Disadvantages</h3>
+            <ul>
+                <li>Fixed size once initialized, which can lead to wasted space or overflow.</li>
+                <li>Expensive insertions and deletions due to shifting of elements.</li>
+            </ul>
+        </div>
+
+        <div class="container sudoku-container">
+            <h2>Sudoku Game</h2>
+            <p>Fill in the Sudoku grid. Each row, column, and 3x3 grid should contain numbers from 1 to 9 without
+                repetition.</p>
+            <div class="sudoku-board" id="sudokuBoard">
+            </div>
+            <button class="btn btn-success mt-3" id="checkSolution">Check Solution</button>
+            <div class="result mt-2" id="result"></div>
+        </div>
+    </main>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 Learn DSA. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sudokuBoard = document.getElementById('sudokuBoard');
+        const resultDisplay = document.getElementById('result');
+
+        const sudokuGrid = [
+            [5, 3, 0, 0, 7, 0, 0, 0, 0],
+            [6, 0, 0, 1, 9, 5, 0, 0, 0],
+            [0, 9, 8, 0, 0, 0, 0, 6, 0],
+            [8, 0, 0, 0, 6, 0, 0, 0, 3],
+            [4, 0, 0, 8, 0, 3, 0, 0, 1],
+            [7, 0, 0, 0, 2, 0, 0, 0, 6],
+            [0, 6, 0, 0, 0, 0, 2, 8, 0],
+            [0, 0, 0, 4, 1, 9, 0, 0, 5],
+            [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        ];
+
+        function createSudokuBoard() {
+            sudokuBoard.innerHTML = '';
+            sudokuGrid.forEach((row, rIndex) => {
+                row.forEach((value, cIndex) => {
+                    const cell = document.createElement('div');
+                    cell.classList.add('sudoku-cell');
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.maxLength = 1;
+                    input.value = value !== 0 ? value : '';
+                    input.dataset.row = rIndex;
+                    input.dataset.col = cIndex;
+                    cell.appendChild(input);
+                    sudokuBoard.appendChild(cell);
+                });
+            });
+        }
+
+        function checkSudoku() {
+            const inputs = document.querySelectorAll('.sudoku-cell input');
+            let isCorrect = true;
+            const userGrid = Array.from({ length: 9 }, () => Array(9).fill(0));
+            let isComplete = true;
+
+            inputs.forEach(input => {
+                const row = input.dataset.row;
+                const col = input.dataset.col;
+                const value = parseInt(input.value) || 0;
+                userGrid[row][col] = value;
+                if (value === 0) isComplete = false; // Check if there are any empty cells
+            });
+
+            // Validate rows, columns, and 3x3 grids
+            for (let i = 0; i < 9; i++) {
+                const rowSet = new Set();
+                const colSet = new Set();
+                for (let j = 0; j < 9; j++) {
+                    if (userGrid[i][j] !== 0) {
+                        if (rowSet.has(userGrid[i][j])) isCorrect = false;
+                        rowSet.add(userGrid[i][j]);
+                    }
+                    if (userGrid[j][i] !== 0) {
+                        if (colSet.has(userGrid[j][i])) isCorrect = false;
+                        colSet.add(userGrid[j][i]);
+                    }
+                }
+            }
+
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    const gridSet = new Set();
+                    for (let r = 0; r < 3; r++) {
+                        for (let c = 0; c < 3; c++) {
+                            const value = userGrid[row * 3 + r][col * 3 + c];
+                            if (value !== 0) {
+                                if (gridSet.has(value)) isCorrect = false;
+                                gridSet.add(value);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (isComplete) {
+                resultDisplay.textContent = isCorrect ? 'Congratulations! 🎉 You solved the Sudoku!' : 'Oops! There are mistakes. ❌';
+            } else {
+                resultDisplay.textContent = 'Please fill all cells before checking.';
+            }
+        }
+
+        document.getElementById('checkSolution').addEventListener('click', checkSudoku);
+        createSudokuBoard();
+    </script>
+</body>
+
+</html>
