@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 1100px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            color: #17a2b8;
+            margin-bottom: 20px;
+        }
+
+        #queue-list {
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        button {
+            font-size: 16px;
+        }
+
+        #results {
+            margin-top: 30px;
+        }
+
+        .customer-served {
+            color: green;
+        }
+
+        .winner {
+            color: green;
+            font-weight: bold;
+        }
+
+        .content-section {
+            background-color: #e9f7f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .content-section h2 {
+            color: #007bff;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            color: #ff6347;
+            font-weight: bold;
+        }
+
+        .input-group {
+            width: 78%;
+            margin: auto;
+        }
+
+        .form-control {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="title">Queue</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="list.html">Linked List</a></li>
+                <li><a href="stack.html">Stack</a></li>
+                <li><a href="arr.html">Array</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container content-section">
+        <h2>What is a Queue?</h2>
+        <p>
+            A <span class="highlight">queue</span> is a linear data structure that follows the
+            <span class="highlight">First In, First Out (FIFO)</span> principle. This means that the first element added
+            to the queue will be the first one to be removed.
+        </p>
+        <p>
+            Imagine a queue of people waiting in line for a ride at an amusement park. The person who gets in line first
+            will be the first to get on the ride, and new people joining the line will wait behind the others. This is
+            exactly how a queue works in programming.
+        </p>
+        <p>
+            Queues are commonly used in scenarios where tasks or elements need to be processed in order, such as in task
+            scheduling, handling requests in web servers, and more.
+        </p>
+        <p>
+            In this simulation, you’ll manage a bank queue where customers wait to be served. The first customer to
+            arrive will be served first, demonstrating the FIFO concept.
+        </p>
+        <p>
+            Key operations in a queue:
+        <ul>
+            <li><span class="highlight">Enqueue</span>: Add an element to the end of the queue.</li>
+            <li><span class="highlight">Dequeue</span>: Remove an element from the front of the queue.</li>
+        </ul>
+        </p>
+    </div>
+    <div class="container text-center">
+        <h1 class="title"> Bank Teller Simulation </h1>
+        <p class="subtitle">Learn About the Queue Data Structure</p>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="customerName" placeholder="Enter customer name">
+            <button class="btn btn-primary btn-circle" onclick="addCustomer()">Add Customer</button>
+        </div>
+
+        <div id="queue-list" class="alert alert-info">
+            <strong>Customers in Queue:</strong> None
+        </div>
+
+        <button class="btn btn-success btn-custom" onclick="serveCustomer()">Serve Customer</button>
+
+        <div id="results" class="mt-4"></div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let queue = [];
+        // Function to add a customer
+        function addCustomer() {
+            const customerName = document.getElementById('customerName').value.trim();
+            if (customerName) {
+                queue.push(customerName);
+                displayQueue();
+                document.getElementById('customerName').value = ''; // Clear input
+            }
+        }
+
+        // Display the current queue
+        function displayQueue() {
+            const queueList = document.getElementById('queue-list');
+            queueList.innerHTML = `<strong>Customers in Queue:</strong> ${queue.length > 0 ? queue.join(', ') : 'None'}`;
+        }
+
+        // Function to serve the first customer in the queue
+        function serveCustomer() {
+            if (queue.length === 0) {
+                alert('No customers in the queue.');
+                return;
+            }
+
+            let resultsDiv = document.getElementById('results');
+            const customerServed = queue.shift(); // Remove first customer
+            resultsDiv.innerHTML += `<p class="customer-served">✔ ${customerServed} has been served!</p>`;
+            displayQueue();
+
+            if (queue.length === 0) {
+                resultsDiv.innerHTML += `<h2 class="winner">🏆 All customers have been served! 🏆</h2>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
