@@ -2,198 +2,241 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learn DSA</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    h1 {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-style: italic;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 1100px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        .sudoku-container {
+            margin-top: 2rem;
+            text-align: center;
+        }
 
-    header {
-      background-color: #343a40;
-      color: white;
-      padding: 20px 0;
-    }
+        .sudoku-board {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-gap: 5px;
+            justify-content: center;
+            margin: auto;
+            width: 100%;
+            max-width: 450px;
+        }
 
-    .title {
-      font-style: italic;
-      color: #007bff;
-    }
+        .sudoku-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            font-size: 20px;
+            transition: background-color 0.3s;
+            background-color: #f9f9f9;
+        }
 
-    nav ul {
-      list-style-type: none;
-      padding: 0;
-    }
+        .sudoku-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 1.5rem;
+            outline: none;
+        }
 
-    nav ul li {
-      display: inline;
-      margin: 0 15px;
-    }
+        .sudoku-cell:focus {
+            background-color: #e0e0e0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
 
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
+            .sudoku-board {
+                grid-template-columns: repeat(9, 1fr);
+                grid-gap: 3px;
+            }
 
-    nav ul li a:hover {
-      color: #ffcc00;
-    }
+            .sudoku-cell input {
+                font-size: 1.2rem;
+            }
+        }
 
-    .container {
-      margin-top: 19px;
-    }
+        @media (max-width: 480px) {
+            .sudoku-board {
+                grid-gap: 2px;
+            }
 
-    .carousel-item {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      height: 400px;
-      color: white;
-      position: relative;
-      margin: 10px;
-    }
-
-    .carousel-item img {
-      max-width: 100%;
-      max-height: 300px;
-      object-fit: contain;
-      padding-bottom: 17px;
-    }
-
-    footer {
-      background-color: #343a40;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-    }
-  </style>
+            .sudoku-cell input {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <header class="text-center">
-    <h1 class="title">Learn Data Structures and Algorithms</h1>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#topics">Topics</a></li>
-        <li><a href="#resources">Resources</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <h1 class="title">Arrays</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="list.html">Linked List</a></li>
+                <li><a href="queue.html">Queue</a></li>
+                <li><a href="stack.html">Stack</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active" style="background-color: #666a6d;">
-        <h2>Arrays</h2>
-        <p>A collection of elements stored in contiguous memory locations, allowing efficient indexing.</p>
-        <a href="arr.html">
-          <img src="array.png" alt="Arrays Illustration">
-        </a>
-      </div>
-      <div class="carousel-item" style="background-color: #58635b;">
-        <h2>Linked List</h2>
-        <p>A linked list is a linear data structure where each element is a separate object linked using pointers.</p>
-        <a href="list.html">
-          <img src="llist.jpg" alt="Linked List Illustration">
-        </a>
-      </div>
-      <div class="carousel-item" style="background-color: #7f7173;">
-        <h2>Stack</h2>
-        <p>A stack is a collection of elements that follows the Last In First Out (LIFO) principle.</p>
-        <a href="stack.html">
-          <img src="stack.png" alt="Stack Illustration">
-        </a>
-      </div>
-      <div class="carousel-item" style="background-color: #9e9a8c;">
-        <h2>Queue</h2>
-        <p>A queue is a collection of elements that follows the First In First Out (FIFO) principle.</p>
-        <a href="queue.html">
-          <img src="queue.png" alt="Queue Illustration">
-        </a>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <main class="container mt-5">
-    <section id="home" class="mb-5 text-center">
-      <h2>Welcome to the world of Data Structures and Algorithms!</h2>
-      <p>Mastering Data Structures and Algorithms (DSA) is a crucial step in becoming a proficient software developer.
-        Whether you're a beginner or brushing up on concepts, this platform is your comprehensive guide to understanding
-        the building blocks of programming. Explore in-depth tutorials on fundamental topics such as Arrays, Linked
-        Lists, Stacks, and Queues. Visualize complex data structures with easy-to-follow diagrams, and put your skills
-        to the test with hands-on practice problems. Our curated resources, including video tutorials and essential
-        reading materials, will help solidify your knowledge.
-        <br>
-        Dive in and start your journey to becoming a DSA expert today!
-      </p>
-    </section>
+    <main>
+        <div class="container content-section">
+            <h2>Introduction to Arrays</h2>
+            <p>An array is a data structure that stores a collection of items at contiguous memory locations. It allows
+                for fast access to elements using an index.</p>
 
-    <section id="topics" class="mb-5">
-      <h2>Topics</h2>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <a href="arr.html" class="btn btn-outline-primary w-100">Array</a>
-        </div>
-        <div class="col-md-6 mb-3">
-          <a href="list.html" class="btn btn-outline-secondary w-100">Linked List</a>
-        </div>
-        <div class="col-md-6 mb-3">
-          <a href="stack.html" class="btn btn-outline-success w-100">Stack</a>
-        </div>
-        <div class="col-md-6 mb-3">
-          <a href="queue.html" class="btn btn-outline-warning w-100">Queue</a>
-        </div>
-      </div>
-    </section>
+            <h3>Basic Operations</h3>
+            <ul>
+                <li><strong>Accessing Elements:</strong> Directly accessing an element using its index.
+                    <code>array[index]</code>.</li>
+                <li><strong>Inserting Elements:</strong> Adding an element at a specific position. This may involve
+                    shifting elements.</li>
+                <li><strong>Deleting Elements:</strong> Removing an element from a specific position. This may also
+                    involve shifting elements.</li>
+                <li><strong>Traversing:</strong> Iterating through the array to perform operations on each element.</li>
+            </ul>
 
-    <section id="resources" class="mb-5">
-      <h2>Resources</h2>
-      <p>Find useful tutorials and books to enhance your learning:</p>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="https://youtu.be/xWLxhF3b5P8?si=BjhPLdI90CQXT_Ug" target="_blank">Telusko
-            Tutorial</a></li>
-        <li class="list-group-item"><a href="https://youtu.be/8hly31xKli0?si=ewybOvmU3apyyRxn"
-            target="_blank">FreeCodeCamp Tutorial</a></li>
-        <li class="list-group-item"><a href="https://amzn.in/d/dyNb5C4" target="_blank">Introduction to Algorithms -
-            Book</a></li>
-        <li class="list-group-item"><a href="https://amzn.in/d/4TMkHfu" target="_blank">Data Structures and Algorithms
-            Made Easy - Book</a></li>
-      </ul>
-    </section>
+            <h3>Example</h3>
+            <pre><code>
+// Java Example
+int[] arr = {1, 2, 3, 4, 5}; // Declaration and initialization
+System.out.println(arr[2]); // Accessing the third element
+            </code></pre>
 
-    <section id="about">
-      <h2>About</h2>
-      <p>This website helps learners master Data Structures and Algorithms through tutorials, resources, and practice
-        problems.</p>
-    </section>
-  </main>
-  <footer class="text-center">
-    <p>&copy; 2024 Learn DSA. All rights reserved.</p>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+            <h3>Advantages</h3>
+            <ul>
+                <li>Constant time access to elements using an index.</li>
+                <li>Simple to implement and use.</li>
+            </ul>
+
+            <h3>Disadvantages</h3>
+            <ul>
+                <li>Fixed size once initialized, which can lead to wasted space or overflow.</li>
+                <li>Expensive insertions and deletions due to shifting of elements.</li>
+            </ul>
+        </div>
+
+        <div class="container sudoku-container">
+            <h2>Sudoku Game</h2>
+            <p>Fill in the Sudoku grid. Each row, column, and 3x3 grid should contain numbers from 1 to 9 without
+                repetition.</p>
+            <div class="sudoku-board" id="sudokuBoard">
+            </div>
+            <button class="btn btn-success mt-3" id="checkSolution">Check Solution</button>
+            <div class="result mt-2" id="result"></div>
+        </div>
+    </main>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 Learn DSA. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sudokuBoard = document.getElementById('sudokuBoard');
+        const resultDisplay = document.getElementById('result');
+
+        const sudokuGrid = [
+            [5, 3, 0, 0, 7, 0, 0, 0, 0],
+            [6, 0, 0, 1, 9, 5, 0, 0, 0],
+            [0, 9, 8, 0, 0, 0, 0, 6, 0],
+            [8, 0, 0, 0, 6, 0, 0, 0, 3],
+            [4, 0, 0, 8, 0, 3, 0, 0, 1],
+            [7, 0, 0, 0, 2, 0, 0, 0, 6],
+            [0, 6, 0, 0, 0, 0, 2, 8, 0],
+            [0, 0, 0, 4, 1, 9, 0, 0, 5],
+            [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        ];
+
+        function createSudokuBoard() {
+            sudokuBoard.innerHTML = '';
+            sudokuGrid.forEach((row, rIndex) => {
+                row.forEach((value, cIndex) => {
+                    const cell = document.createElement('div');
+                    cell.classList.add('sudoku-cell');
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.maxLength = 1;
+                    input.value = value !== 0 ? value : '';
+                    input.dataset.row = rIndex;
+                    input.dataset.col = cIndex;
+                    cell.appendChild(input);
+                    sudokuBoard.appendChild(cell);
+                });
+            });
+        }
+
+        function checkSudoku() {
+            const inputs = document.querySelectorAll('.sudoku-cell input');
+            let isCorrect = true;
+            const userGrid = Array.from({ length: 9 }, () => Array(9).fill(0));
+            let isComplete = true;
+
+            inputs.forEach(input => {
+                const row = input.dataset.row;
+                const col = input.dataset.col;
+                const value = parseInt(input.value) || 0;
+                userGrid[row][col] = value;
+                if (value === 0) isComplete = false; // Check if there are any empty cells
+            });
+
+            // Validate rows, columns, and 3x3 grids
+            for (let i = 0; i < 9; i++) {
+                const rowSet = new Set();
+                const colSet = new Set();
+                for (let j = 0; j < 9; j++) {
+                    if (userGrid[i][j] !== 0) {
+                        if (rowSet.has(userGrid[i][j])) isCorrect = false;
+                        rowSet.add(userGrid[i][j]);
+                    }
+                    if (userGrid[j][i] !== 0) {
+                        if (colSet.has(userGrid[j][i])) isCorrect = false;
+                        colSet.add(userGrid[j][i]);
+                    }
+                }
+            }
+
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    const gridSet = new Set();
+                    for (let r = 0; r < 3; r++) {
+                        for (let c = 0; c < 3; c++) {
+                            const value = userGrid[row * 3 + r][col * 3 + c];
+                            if (value !== 0) {
+                                if (gridSet.has(value)) isCorrect = false;
+                                gridSet.add(value);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (isComplete) {
+                resultDisplay.textContent = isCorrect ? 'Congratulations! 🎉 You solved the Sudoku!' : 'Oops! There are mistakes. ❌';
+            } else {
+                resultDisplay.textContent = 'Please fill all cells before checking.';
+            }
+        }
+
+        document.getElementById('checkSolution').addEventListener('click', checkSudoku);
+        createSudokuBoard();
+    </script>
 </body>
 
 </html>
